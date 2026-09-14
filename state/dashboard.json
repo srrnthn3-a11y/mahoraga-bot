@@ -5,13 +5,13 @@
       "status": "ok",
       "mode": "paper",
       "symbol": "BTC/USDT",
-      "equity": "6984.83160668951",
-      "regime": "RANGING",
+      "equity": "6984.721713354656",
+      "regime": "UNCERTAIN",
       "trend": "UNKNOWN",
-      "last_decision": "No trusted structural signal present.",
+      "last_decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now.",
       "open_positions": 0,
-      "updated_at": "2026-09-14T12:27:14.042373+00:00"
+      "updated_at": "2026-09-14T18:06:49.598448+00:00"
     }
   },
-  "updated_at": "2026-09-14T12:27:14.050569+00:00"
+  "updated_at": "2026-09-14T18:06:49.606528+00:00"
 }
