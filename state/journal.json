@@ -16,5 +16,14 @@
     "trend": "UNKNOWN",
     "decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now.",
     "order": null
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-14T21:46:20.424225+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "No trusted structural signal present.",
+    "order": null
   }
 ]
