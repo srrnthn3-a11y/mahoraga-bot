@@ -1,0 +1,59 @@
+name: Mahoraga Bot Run
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      # Add one block like this per account in accounts.json.
+      # account_id "okx_demo_1" -> env prefix OKX_DEMO_1_
+      OKX_DEMO_1_API_KEY: ${{ secrets.OKX_DEMO_1_API_KEY }}
+      OKX_DEMO_1_API_SECRET: ${{ secrets.OKX_DEMO_1_API_SECRET }}
+      OKX_DEMO_1_API_PASSPHRASE: ${{ secrets.OKX_DEMO_1_API_PASSPHRASE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install ccxt
+
+      - name: Run Mahoraga
+        run: python app/run.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "Mahoraga Bot"
+          git config user.email "bot@mahoraga.local"
+          git add state/ 2>/dev/null || true
+          git diff --quiet --cached || git commit -m "State update $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push || true
+
+      - name: Copy dashboard state for Pages
+        run: cp state/dashboard.json dashboard/dashboard.json || echo "{}" > dashboard/dashboard.json
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dashboard
+
+  deploy-pages:
+    needs: run-bot
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

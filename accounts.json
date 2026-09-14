@@ -1,0 +1,21 @@
+{
+  "accounts": [
+    {
+      "account_id": "okx_demo_1",
+      "name": "OKX Demo",
+      "exchange_id": "okx",
+      "symbol": "BTC/USDT",
+      "timeframe": "15m",
+      "quote_asset": "USDT",
+      "mode": "paper",
+      "risk": {
+        "risk_percent": "1.0",
+        "min_rrr": "3.0",
+        "max_daily_loss_percent": "3.0",
+        "max_consecutive_losses": 3,
+        "max_open_positions": 3,
+        "max_exposure_percent": "50.0"
+      }
+    }
+  ]
+}

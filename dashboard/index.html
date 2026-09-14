@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mahoraga Bot Dashboard</title>
+<style>
+  body { font-family: -apple-system, sans-serif; background: #0d0d0f; color: #e6e6e6; margin: 0; padding: 16px; }
+  h1 { font-size: 1.3rem; margin-bottom: 4px; }
+  .updated { color: #888; font-size: 0.8rem; margin-bottom: 20px; }
+  .card { background: #1a1a1e; border-radius: 10px; padding: 16px; margin-bottom: 12px; border: 1px solid #2a2a2e; }
+  .card h2 { margin: 0 0 10px 0; font-size: 1.05rem; }
+  .row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem; }
+  .label { color: #999; }
+  .status-ok { color: #4ade80; }
+  .status-error { color: #f87171; }
+  .status-missing { color: #fbbf24; }
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; background: #2a2a2e; }
+</style>
+</head>
+<body>
+  <h1>Mahoraga Bot</h1>
+  <div class="updated" id="updated">Loading...</div>
+  <div id="accounts"></div>
+
+  <script>
+    async function load() {
+      try {
+        const res = await fetch('./dashboard.json?_=' + Date.now());
+        const data = await res.json();
+        document.getElementById('updated').textContent =
+          'Last update: ' + (data.updated_at ? new Date(data.updated_at).toLocaleString() : 'never');
+
+        const container = document.getElementById('accounts');
+        container.innerHTML = '';
+        const accounts = data.accounts || {};
+
+        if (Object.keys(accounts).length === 0) {
+          container.innerHTML = '<div class="card">No account data yet — waiting for first run.</div>';
+          return;
+        }
+
+        for (const [id, info] of Object.entries(accounts)) {
+          const statusClass = info.status === 'ok' ? 'status-ok'
+            : info.status === 'missing_credentials' ? 'status-missing' : 'status-error';
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <h2>${info.name || id} <span class="pill">${info.mode || ''}</span></h2>
+            <div class="row"><span class="label">Status</span><span class="${statusClass}">${info.status}</span></div>
+            ${info.symbol ? `<div class="row"><span class="label">Symbol</span><span>${info.symbol}</span></div>` : ''}
+            ${info.equity ? `<div class="row"><span class="label">Equity</span><span>${info.equity}</span></div>` : ''}
+            ${info.regime ? `<div class="row"><span class="label">Regime</span><span>${info.regime}</span></div>` : ''}
+            ${info.trend ? `<div class="row"><span class="label">Trend</span><span>${info.trend}</span></div>` : ''}
+            ${info.open_positions !== undefined ? `<div class="row"><span class="label">Open positions</span><span>${info.open_positions}</span></div>` : ''}
+            ${info.last_decision ? `<div class="row"><span class="label">Last decision</span><span>${info.last_decision}</span></div>` : ''}
+            ${info.error ? `<div class="row"><span class="label">Error</span><span class="status-error">${info.error}</span></div>` : ''}
+          `;
+          container.appendChild(card);
+        }
+      } catch (e) {
+        document.getElementById('updated').textContent = 'Failed to load dashboard data.';
+      }
+    }
+    load();
+    setInterval(load, 60000);
+  </script>
+</body>
+</html>
