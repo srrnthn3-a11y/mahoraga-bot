@@ -1,0 +1,9 @@
+{
+  "okx_demo_1": {
+    "kill_switch": false,
+    "daily_loss_percent": "0",
+    "consecutive_losses": 0,
+    "open_positions": 0,
+    "exposure_percent": "0"
+  }
+}
