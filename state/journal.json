@@ -104,5 +104,35 @@
     "decision": "No trusted structural signal present.",
     "order": null,
     "equity": "96107.35814010733"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:25:07.238542+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "BEARISH",
+    "decision": "Maximum exposure exceeded.",
+    "order": null,
+    "equity": "95890.00011445847"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:25:07.425355+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Maximum exposure exceeded.",
+    "order": null,
+    "equity": "95890.00011445847"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:25:07.616137+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Maximum exposure exceeded.",
+    "order": null,
+    "equity": "95890.00011445847"
   }
 ]
