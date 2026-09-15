@@ -25,5 +25,14 @@
     "trend": "UNKNOWN",
     "decision": "No trusted structural signal present.",
     "order": null
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T00:02:58.179667+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "No trusted structural signal present.",
+    "order": null
   }
 ]
