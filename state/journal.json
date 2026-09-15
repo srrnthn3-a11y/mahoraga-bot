@@ -44,5 +44,35 @@
     "decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now.",
     "order": null,
     "equity": "6984.819352590299"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T02:53:11.245878+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "BEARISH",
+    "decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now.",
+    "order": null,
+    "equity": "96337.04998013964"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T02:53:11.457850+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "No trusted structural signal present.",
+    "order": null,
+    "equity": "96337.04998013964"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T02:53:11.665550+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Maximum exposure exceeded.",
+    "order": null,
+    "equity": "96337.04998013964"
   }
 ]

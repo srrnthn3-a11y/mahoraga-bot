@@ -4,14 +4,27 @@
       "name": "OKX Demo",
       "status": "ok",
       "mode": "paper",
-      "symbol": "BTC/USDT",
-      "equity": "6984.819352590299",
-      "regime": "UNCERTAIN",
-      "trend": "BEARISH",
-      "last_decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now.",
+      "equity": "96337.04998013964",
+      "symbols": {
+        "BTC/USDT": {
+          "regime": "UNCERTAIN",
+          "trend": "BEARISH",
+          "last_decision": "Regime 'UNCERTAIN' is not tradeable for Mahoraga right now."
+        },
+        "ETH/USDT": {
+          "regime": "RANGING",
+          "trend": "UNKNOWN",
+          "last_decision": "No trusted structural signal present."
+        },
+        "SOL/USDT": {
+          "regime": "RANGING",
+          "trend": "BULLISH",
+          "last_decision": "Maximum exposure exceeded."
+        }
+      },
       "open_positions": 0,
-      "updated_at": "2026-09-15T02:37:46.756432+00:00"
+      "updated_at": "2026-09-15T02:53:11.666194+00:00"
     }
   },
-  "updated_at": "2026-09-15T02:37:46.763660+00:00"
+  "updated_at": "2026-09-15T02:53:11.674722+00:00"
 }
