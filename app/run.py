@@ -108,7 +108,7 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
     state_store.append_journal(account_id, {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "symbol": symbol, "regime": regime.regime, "trend": structure.trend,
-        "decision": decision_reason, "order": order_result,
+        "decision": decision_reason, "order": order_result, "equity": str(equity),
     })
     state_store.update_dashboard(account_id, {
         "name": account.get("name", account_id), "status": "ok", "mode": account.get("mode", "paper"),

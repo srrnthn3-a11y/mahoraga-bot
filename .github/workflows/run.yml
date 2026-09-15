@@ -42,7 +42,9 @@ jobs:
           git push || true
 
       - name: Copy dashboard state for Pages
-        run: cp state/dashboard.json dashboard/dashboard.json || echo "{}" > dashboard/dashboard.json
+        run: |
+          cp state/dashboard.json dashboard/dashboard.json || echo "{}" > dashboard/dashboard.json
+          cp state/journal.json dashboard/journal.json || echo "[]" > dashboard/journal.json
 
       - uses: actions/upload-pages-artifact@v3
         with:

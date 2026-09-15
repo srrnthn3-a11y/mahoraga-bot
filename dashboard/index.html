@@ -4,64 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mahoraga Bot Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
-  body { font-family: -apple-system, sans-serif; background: #0d0d0f; color: #e6e6e6; margin: 0; padding: 16px; }
-  h1 { font-size: 1.3rem; margin-bottom: 4px; }
-  .updated { color: #888; font-size: 0.8rem; margin-bottom: 20px; }
-  .card { background: #1a1a1e; border-radius: 10px; padding: 16px; margin-bottom: 12px; border: 1px solid #2a2a2e; }
-  .card h2 { margin: 0 0 10px 0; font-size: 1.05rem; }
-  .row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 0.9rem; }
-  .label { color: #999; }
-  .status-ok { color: #4ade80; }
-  .status-error { color: #f87171; }
-  .status-missing { color: #fbbf24; }
-  .pill { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; background: #2a2a2e; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #14141a 0%, #08080a 60%);
+    color: #eee;
+    margin: 0;
+    padding: 20px 16px 60px;
+    min-height: 100vh;
+  }
+  .header { margin-bottom: 20px; }
+  .header h1 {
+    font-size: 1.5rem; margin: 0 0 4px 0;
+    background: linear-gradient(90deg, #a78bfa, #60a5fa);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-weight: 800;
+  }
+  .updated { color: #6b7280; font-size: 0.78rem; }
+  .card {
+    background: linear-gradient(160deg, #1c1c22 0%, #151519 100%);
+    border-radius: 16px; padding: 20px; margin-bottom: 16px;
+    border: 1px solid #2a2a32;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  }
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .card-top h2 { margin: 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+  .dot-ok { background: #34d399; box-shadow: 0 0 10px #34d399; animation: pulse 2s infinite; }
+  .dot-error { background: #f87171; box-shadow: 0 0 10px #f87171; }
+  .dot-missing { background: #fbbf24; box-shadow: 0 0 10px #fbbf24; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .pill { padding: 3px 10px; border-radius: 999px; font-size: 0.72rem; font-weight: 600; background: #2a2a32; color: #a1a1aa; }
+  .pill-live { background: #451a1a; color: #f87171; }
+  .pill-paper { background: #1a2e2a; color: #34d399; }
+
+  .equity { font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; margin: 10px 0 2px; }
+  .equity-label { font-size: 0.78rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .chart-wrap { height: 90px; margin: 14px 0 6px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+  .stat { background: #101014; border-radius: 10px; padding: 10px 12px; }
+  .stat-label { font-size: 0.72rem; color: #6b7280; margin-bottom: 3px; }
+  .stat-value { font-size: 0.95rem; font-weight: 600; }
+
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+  .badge-TRENDING, .badge-BULLISH { background: #1a2e2a; color: #34d399; }
+  .badge-RANGING { background: #2a2416; color: #fbbf24; }
+  .badge-VOLATILE, .badge-BEARISH { background: #2e1a1a; color: #f87171; }
+  .badge-UNKNOWN, .badge-UNCERTAIN { background: #23232b; color: #a1a1aa; }
+
+  .decision { margin-top: 14px; font-size: 0.85rem; color: #d1d5db; background: #101014; border-radius: 10px; padding: 10px 12px; }
+  .error-text { color: #f87171; font-size: 0.85rem; margin-top: 10px; }
 </style>
 </head>
 <body>
-  <h1>Mahoraga Bot</h1>
-  <div class="updated" id="updated">Loading...</div>
+  <div class="header">
+    <h1>⟁ Mahoraga</h1>
+    <div class="updated" id="updated">Loading...</div>
+  </div>
   <div id="accounts"></div>
 
   <script>
-    async function load() {
+    const charts = {};
+
+    function regimeClass(v) { return 'badge badge-' + (v || 'UNKNOWN'); }
+
+    async function fetchJson(path) {
       try {
-        const res = await fetch('./dashboard.json?_=' + Date.now());
-        const data = await res.json();
-        document.getElementById('updated').textContent =
-          'Last update: ' + (data.updated_at ? new Date(data.updated_at).toLocaleString() : 'never');
+        const res = await fetch(path + '?_=' + Date.now());
+        if (!res.ok) return null;
+        return await res.json();
+      } catch (e) { return null; }
+    }
 
-        const container = document.getElementById('accounts');
-        container.innerHTML = '';
-        const accounts = data.accounts || {};
+    async function load() {
+      const dashboard = await fetchJson('./dashboard.json');
+      const journal = (await fetchJson('./journal.json')) || [];
 
-        if (Object.keys(accounts).length === 0) {
-          container.innerHTML = '<div class="card">No account data yet — waiting for first run.</div>';
-          return;
+      if (!dashboard) {
+        document.getElementById('updated').textContent = 'Waiting for first run...';
+        return;
+      }
+
+      document.getElementById('updated').textContent =
+        'Last update: ' + (dashboard.updated_at ? new Date(dashboard.updated_at).toLocaleString() : 'never');
+
+      const container = document.getElementById('accounts');
+      const accounts = dashboard.accounts || {};
+
+      if (Object.keys(accounts).length === 0) {
+        container.innerHTML = '<div class="card">No account data yet — waiting for first run.</div>';
+        return;
+      }
+
+      container.innerHTML = '';
+      for (const [id, info] of Object.entries(accounts)) {
+        const dotClass = info.status === 'ok' ? 'dot-ok'
+          : info.status === 'missing_credentials' ? 'dot-missing' : 'dot-error';
+        const modeClass = info.mode === 'live' ? 'pill-live' : 'pill-paper';
+
+        const equityHistory = journal
+          .filter(e => e.account_id === id && e.equity)
+          .slice(-40);
+
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="card-top">
+            <h2><span class="dot ${dotClass}"></span>${info.name || id}</h2>
+            <span class="pill ${modeClass}">${(info.mode || '').toUpperCase()}</span>
+          </div>
+          <div class="equity-label">Equity ${info.symbol ? '· ' + info.symbol : ''}</div>
+          <div class="equity">${info.equity ? '$' + Number(info.equity).toLocaleString(undefined, {maximumFractionDigits: 2}) : '—'}</div>
+          <div class="chart-wrap"><canvas id="chart-${id}"></canvas></div>
+          <div class="grid">
+            <div class="stat"><div class="stat-label">Regime</div><div class="stat-value"><span class="${regimeClass(info.regime)}">${info.regime || '—'}</span></div></div>
+            <div class="stat"><div class="stat-label">Trend</div><div class="stat-value"><span class="${regimeClass(info.trend)}">${info.trend || '—'}</span></div></div>
+            <div class="stat"><div class="stat-label">Open positions</div><div class="stat-value">${info.open_positions ?? '—'}</div></div>
+            <div class="stat"><div class="stat-label">Status</div><div class="stat-value">${info.status}</div></div>
+          </div>
+          ${info.last_decision ? `<div class="decision">${info.last_decision}</div>` : ''}
+          ${info.error ? `<div class="error-text">${info.error}</div>` : ''}
+        `;
+        container.appendChild(card);
+
+        if (equityHistory.length > 1) {
+          const ctx = card.querySelector(`#chart-${id}`).getContext('2d');
+          if (charts[id]) charts[id].destroy();
+          charts[id] = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: equityHistory.map(e => e.timestamp),
+              datasets: [{
+                data: equityHistory.map(e => parseFloat(e.equity)),
+                borderColor: '#a78bfa',
+                backgroundColor: 'rgba(167,139,250,0.15)',
+                fill: true, tension: 0.35, pointRadius: 0, borderWidth: 2,
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: { x: { display: false }, y: { display: false } },
+            }
+          });
         }
-
-        for (const [id, info] of Object.entries(accounts)) {
-          const statusClass = info.status === 'ok' ? 'status-ok'
-            : info.status === 'missing_credentials' ? 'status-missing' : 'status-error';
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <h2>${info.name || id} <span class="pill">${info.mode || ''}</span></h2>
-            <div class="row"><span class="label">Status</span><span class="${statusClass}">${info.status}</span></div>
-            ${info.symbol ? `<div class="row"><span class="label">Symbol</span><span>${info.symbol}</span></div>` : ''}
-            ${info.equity ? `<div class="row"><span class="label">Equity</span><span>${info.equity}</span></div>` : ''}
-            ${info.regime ? `<div class="row"><span class="label">Regime</span><span>${info.regime}</span></div>` : ''}
-            ${info.trend ? `<div class="row"><span class="label">Trend</span><span>${info.trend}</span></div>` : ''}
-            ${info.open_positions !== undefined ? `<div class="row"><span class="label">Open positions</span><span>${info.open_positions}</span></div>` : ''}
-            ${info.last_decision ? `<div class="row"><span class="label">Last decision</span><span>${info.last_decision}</span></div>` : ''}
-            ${info.error ? `<div class="row"><span class="label">Error</span><span class="status-error">${info.error}</span></div>` : ''}
-          `;
-          container.appendChild(card);
-        }
-      } catch (e) {
-        document.getElementById('updated').textContent = 'Failed to load dashboard data.';
       }
     }
+
     load();
     setInterval(load, 60000);
   </script>
