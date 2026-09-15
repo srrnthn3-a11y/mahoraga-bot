@@ -36,6 +36,20 @@ REGIME_TRUST = {
 
 MIN_REGIME_CONFIDENCE = Decimal("0.35")
 RANGE_EDGE_THRESHOLD = Decimal("0.3")  # within 30% of range edge counts as "near the edge"
+MIN_LEVERAGE = 1
+MAX_LEVERAGE = 5
+
+
+def select_leverage(regime: RegimeResult) -> int:
+    """
+    Adaptive leverage: scales with how confident Mahoraga is in its regime read.
+    Low confidence -> 1x (barely more than spot). High confidence -> up to 5x.
+    This is the core of "adapting to the market" — not just direction, but conviction.
+    """
+    confidence = max(Decimal("0"), min(Decimal("1"), regime.confidence))
+    raw = MIN_LEVERAGE + confidence * (MAX_LEVERAGE - MIN_LEVERAGE)
+    leverage = int(raw.to_integral_value(rounding="ROUND_HALF_UP"))
+    return max(MIN_LEVERAGE, min(MAX_LEVERAGE, leverage))
 
 
 def _range_position(structure: StructureResult, current_price: Decimal) -> Decimal | None:

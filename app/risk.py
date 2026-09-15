@@ -80,11 +80,13 @@ class RiskEngine:
         self.settings = settings
         self.state = state
 
-    def validate(self, trade: TradeRequest, account_equity: Decimal) -> RiskResult:
+    def validate(self, trade: TradeRequest, account_equity: Decimal, leverage: Decimal = Decimal("1")) -> RiskResult:
         if self.state.kill_switch:
             return RiskResult(False, "Kill switch is active.")
         if account_equity <= 0:
             return RiskResult(False, "Invalid account equity.")
+        if leverage <= 0:
+            return RiskResult(False, "Invalid leverage.")
 
         side = trade.side.upper()
         if side == "LONG":
@@ -115,8 +117,10 @@ class RiskEngine:
 
         risk_amount = account_equity * self.settings.risk_percent / Decimal("100")
         position_size = risk_amount / stop_distance
-        exposure = self.state.exposure_percent + position_size * trade.entry / account_equity * Decimal("100")
-        if exposure > self.settings.max_exposure_percent:
+        notional_value = position_size * trade.entry
+        margin_required = notional_value / leverage
+        margin_percent = self.state.exposure_percent + margin_required / account_equity * Decimal("100")
+        if margin_percent > self.settings.max_exposure_percent:
             return RiskResult(False, "Maximum exposure exceeded.", risk_amount, position_size, rrr)
 
         return RiskResult(True, "Trade approved.", risk_amount, position_size, rrr)

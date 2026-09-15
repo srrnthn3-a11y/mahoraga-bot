@@ -90,8 +90,11 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
     symbol_results: dict[str, dict] = {}
 
     for symbol in symbols:
+        market_type = account.get("market_type", "spot")
+        exchange_symbol = ExchangeAdapter.to_swap_symbol(symbol) if market_type == "swap" else symbol
+
         try:
-            snapshot = adapter.fetch_snapshot(symbol, timeframe=timeframe, limit=100)
+            snapshot = adapter.fetch_snapshot(exchange_symbol, timeframe=timeframe, limit=100)
         except ExchangeError as exc:
             symbol_results[symbol] = {"status": "error", "error": str(exc)}
             continue
@@ -101,15 +104,19 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
         current_price = snapshot.latest.close if snapshot.latest else Decimal("0")
 
         trade, decision_reason = mahoraga.decide(regime, structure, current_price, settings.min_rrr, stop_buffer)
+        leverage = mahoraga.select_leverage(regime) if market_type == "swap" else 1
 
         order_result = None
         if trade:
-            trade.symbol = symbol
-            risk_result = engine.validate(trade, equity)
+            trade.symbol = exchange_symbol
+            risk_result = engine.validate(trade, equity, leverage=Decimal(leverage))
             if risk_result.approved:
                 try:
+                    if market_type == "swap":
+                        adapter.set_leverage(exchange_symbol, leverage)
                     side = "buy" if trade.side == "LONG" else "sell"
-                    order_result = adapter.place_order(symbol, side, risk_result.position_size)
+                    order_result = adapter.place_order(exchange_symbol, side, risk_result.position_size)
+                    order_result["leverage"] = leverage
                     risk_state.open_positions += 1
                 except ExchangeError as exc:
                     order_result = {"error": str(exc)}
@@ -119,9 +126,11 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "symbol": symbol, "regime": regime.regime, "trend": structure.trend,
             "decision": decision_reason, "order": order_result, "equity": str(equity),
+            "leverage": leverage if trade else None,
         })
         symbol_results[symbol] = {
             "regime": regime.regime, "trend": structure.trend, "last_decision": decision_reason,
+            "leverage": leverage if trade else None,
         }
 
     state_store.save_risk_state(account_id, risk_state.to_dict())

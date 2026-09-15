@@ -129,7 +129,7 @@
           row.className = 'grid';
           row.style.marginTop = '10px';
           row.innerHTML = `
-            <div class="stat" style="grid-column: 1 / -1; margin-bottom: -4px;"><div class="stat-label">${sym}</div></div>
+            <div class="stat" style="grid-column: 1 / -1; margin-bottom: -4px;"><div class="stat-label">${sym}${s.leverage ? ' · ' + s.leverage + 'x' : ''}</div></div>
             <div class="stat"><div class="stat-label">Regime</div><div class="stat-value"><span class="${regimeClass(s.regime)}">${s.regime || '—'}</span></div></div>
             <div class="stat"><div class="stat-label">Trend</div><div class="stat-value"><span class="${regimeClass(s.trend)}">${s.trend || '—'}</span></div></div>
           `;

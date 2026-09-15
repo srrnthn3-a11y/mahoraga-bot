@@ -85,9 +85,29 @@ class ExchangeAdapter:
                 continue  # asset can't be priced against quote_asset — skip it
         return total
 
-    def place_order(self, symbol: str, side: str, amount: Decimal) -> dict:
+    def place_order(self, symbol: str, side: str, amount: Decimal, reduce_only: bool = False) -> dict:
+        params: dict[str, Any] = {}
+        if reduce_only:
+            params["reduceOnly"] = True
         try:
-            raw = self.client.create_order(symbol=symbol, type="market", side=side.lower(), amount=float(amount))
+            raw = self.client.create_order(
+                symbol=symbol, type="market", side=side.lower(), amount=float(amount), params=params,
+            )
             return {"order_id": str(raw.get("id", "")), "status": raw.get("status", "unknown")}
         except Exception as exc:
             raise ExchangeError(f"Order failed: {exc}") from exc
+
+    def set_leverage(self, symbol: str, leverage: int) -> None:
+        """Sets leverage for a perpetual swap symbol. No-op on exchanges/markets that don't support it."""
+        try:
+            self.client.set_leverage(leverage, symbol)
+        except Exception as exc:
+            raise ExchangeError(f"Failed to set leverage for {symbol}: {exc}") from exc
+
+    @staticmethod
+    def to_swap_symbol(spot_symbol: str) -> str:
+        """Converts a spot pair like 'BTC/USDT' into ccxt's perpetual swap notation 'BTC/USDT:USDT'."""
+        if ":" in spot_symbol:
+            return spot_symbol  # already a swap symbol
+        base, quote = spot_symbol.split("/")
+        return f"{base}/{quote}:{quote}"
