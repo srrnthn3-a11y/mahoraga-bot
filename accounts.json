@@ -5,7 +5,7 @@
       "name": "OKX Demo",
       "exchange_id": "okx",
       "symbol": "BTC/USDT",
-      "timeframe": "15m",
+      "timeframe": "5m",
       "quote_asset": "USDT",
       "mode": "paper",
       "risk": {
@@ -14,7 +14,8 @@
         "max_daily_loss_percent": "3.0",
         "max_consecutive_losses": 3,
         "max_open_positions": 3,
-        "max_exposure_percent": "50.0"
+        "max_exposure_percent": "50.0",
+        "stop_buffer_percent": "0.15"
       }
     }
   ]

@@ -84,7 +84,8 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
     current_price = snapshot.latest.close if snapshot.latest else Decimal("0")
 
     settings = RiskSettings.from_dict(account.get("risk", {}))
-    trade, decision_reason = mahoraga.decide(regime, structure, current_price, settings.min_rrr)
+    stop_buffer = Decimal(str(account.get("risk", {}).get("stop_buffer_percent", "0.3")))
+    trade, decision_reason = mahoraga.decide(regime, structure, current_price, settings.min_rrr, stop_buffer)
 
     risk_state = RiskState.from_dict(state_store.load_risk_state(account_id))
     risk_state.kill_switch = global_kill_switch or account.get("kill_switch", False)
