@@ -51,7 +51,7 @@ def env_for(account_id: str, suffix: str) -> str | None:
 
 def run_account(account: dict, global_kill_switch: bool) -> None:
     account_id = account["account_id"]
-    symbol = account.get("symbol", "BTC/USDT")
+    symbols = account.get("symbols") or [account.get("symbol", "BTC/USDT")]
     timeframe = account.get("timeframe", "15m")
 
     api_key = env_for(account_id, "API_KEY")
@@ -70,7 +70,6 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
             exchange_id=account["exchange_id"], api_key=api_key, api_secret=api_secret,
             api_passphrase=api_passphrase, mode=account.get("mode", "paper"),
         )
-        snapshot = adapter.fetch_snapshot(symbol, timeframe=timeframe, limit=100)
         equity = adapter.fetch_equity(account.get("quote_asset", "USDT"))
     except ExchangeError as exc:
         state_store.update_dashboard(account_id, {
@@ -79,41 +78,56 @@ def run_account(account: dict, global_kill_switch: bool) -> None:
         })
         return
 
-    regime = RegimeDetector().detect(snapshot.candles)
-    structure = StructureAnalyzer().analyze(snapshot.candles)
-    current_price = snapshot.latest.close if snapshot.latest else Decimal("0")
-
     settings = RiskSettings.from_dict(account.get("risk", {}))
     stop_buffer = Decimal(str(account.get("risk", {}).get("stop_buffer_percent", "0.3")))
-    trade, decision_reason = mahoraga.decide(regime, structure, current_price, settings.min_rrr, stop_buffer)
 
+    # Risk state (daily loss, open positions, exposure) is shared across all symbols
+    # in this account — a kill switch or max-exposure limit applies account-wide.
     risk_state = RiskState.from_dict(state_store.load_risk_state(account_id))
     risk_state.kill_switch = global_kill_switch or account.get("kill_switch", False)
     engine = RiskEngine(settings, risk_state)
 
-    order_result = None
-    if trade:
-        trade.symbol = symbol
-        risk_result = engine.validate(trade, equity)
-        if risk_result.approved:
-            try:
-                side = "buy" if trade.side == "LONG" else "sell"
-                order_result = adapter.place_order(symbol, side, risk_result.position_size)
-                risk_state.open_positions += 1
-            except ExchangeError as exc:
-                order_result = {"error": str(exc)}
-        decision_reason = risk_result.reason if not risk_result.approved else decision_reason
+    symbol_results: dict[str, dict] = {}
+
+    for symbol in symbols:
+        try:
+            snapshot = adapter.fetch_snapshot(symbol, timeframe=timeframe, limit=100)
+        except ExchangeError as exc:
+            symbol_results[symbol] = {"status": "error", "error": str(exc)}
+            continue
+
+        regime = RegimeDetector().detect(snapshot.candles)
+        structure = StructureAnalyzer().analyze(snapshot.candles)
+        current_price = snapshot.latest.close if snapshot.latest else Decimal("0")
+
+        trade, decision_reason = mahoraga.decide(regime, structure, current_price, settings.min_rrr, stop_buffer)
+
+        order_result = None
+        if trade:
+            trade.symbol = symbol
+            risk_result = engine.validate(trade, equity)
+            if risk_result.approved:
+                try:
+                    side = "buy" if trade.side == "LONG" else "sell"
+                    order_result = adapter.place_order(symbol, side, risk_result.position_size)
+                    risk_state.open_positions += 1
+                except ExchangeError as exc:
+                    order_result = {"error": str(exc)}
+            decision_reason = risk_result.reason if not risk_result.approved else decision_reason
+
+        state_store.append_journal(account_id, {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "symbol": symbol, "regime": regime.regime, "trend": structure.trend,
+            "decision": decision_reason, "order": order_result, "equity": str(equity),
+        })
+        symbol_results[symbol] = {
+            "regime": regime.regime, "trend": structure.trend, "last_decision": decision_reason,
+        }
 
     state_store.save_risk_state(account_id, risk_state.to_dict())
-    state_store.append_journal(account_id, {
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "symbol": symbol, "regime": regime.regime, "trend": structure.trend,
-        "decision": decision_reason, "order": order_result, "equity": str(equity),
-    })
     state_store.update_dashboard(account_id, {
         "name": account.get("name", account_id), "status": "ok", "mode": account.get("mode", "paper"),
-        "symbol": symbol, "equity": str(equity), "regime": regime.regime,
-        "trend": structure.trend, "last_decision": decision_reason,
+        "equity": str(equity), "symbols": symbol_results,
         "open_positions": risk_state.open_positions,
         "updated_at": datetime.now(timezone.utc).isoformat(),
     })

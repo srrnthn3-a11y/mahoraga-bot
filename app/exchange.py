@@ -53,12 +53,37 @@ class ExchangeAdapter:
         return MarketSnapshot(symbol=symbol, timeframe=timeframe, candles=candles)
 
     def fetch_equity(self, quote_asset: str = "USDT") -> Decimal:
+        """Total portfolio value across all assets, converted to quote_asset (e.g. USDT)."""
         try:
             balance = self.client.fetch_balance()
         except Exception as exc:
             raise ExchangeError(f"Failed to fetch balance: {exc}") from exc
-        total = balance.get("total", {}).get(quote_asset)
-        return Decimal(str(total)) if total else Decimal("0")
+
+        # OKX exposes a pre-computed total account equity (in USD) directly — use it when available.
+        if self.client.id == "okx":
+            try:
+                data = balance.get("info", {}).get("data", [])
+                if data and data[0].get("totalEq"):
+                    return Decimal(str(data[0]["totalEq"]))
+            except Exception:
+                pass
+
+        # Generic fallback: sum every non-zero asset, converting to quote_asset via its ticker price.
+        total = Decimal("0")
+        for asset, amount in balance.get("total", {}).items():
+            if not amount:
+                continue
+            amount = Decimal(str(amount))
+            if asset == quote_asset:
+                total += amount
+                continue
+            try:
+                ticker = self.client.fetch_ticker(f"{asset}/{quote_asset}")
+                price = Decimal(str(ticker["last"]))
+                total += amount * price
+            except Exception:
+                continue  # asset can't be priced against quote_asset — skip it
+        return total
 
     def place_order(self, symbol: str, side: str, amount: Decimal) -> dict:
         try:

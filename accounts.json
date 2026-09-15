@@ -4,7 +4,7 @@
       "account_id": "okx_demo_1",
       "name": "OKX Demo",
       "exchange_id": "okx",
-      "symbol": "BTC/USDT",
+      "symbols": ["BTC/USDT", "ETH/USDT", "SOL/USDT"],
       "timeframe": "5m",
       "quote_asset": "USDT",
       "mode": "paper",

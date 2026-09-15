@@ -117,19 +117,42 @@
             <h2><span class="dot ${dotClass}"></span>${info.name || id}</h2>
             <span class="pill ${modeClass}">${(info.mode || '').toUpperCase()}</span>
           </div>
-          <div class="equity-label">Equity ${info.symbol ? '· ' + info.symbol : ''}</div>
+          <div class="equity-label">Total equity</div>
           <div class="equity">${info.equity ? '$' + Number(info.equity).toLocaleString(undefined, {maximumFractionDigits: 2}) : '—'}</div>
           <div class="chart-wrap"><canvas id="chart-${id}"></canvas></div>
-          <div class="grid">
-            <div class="stat"><div class="stat-label">Regime</div><div class="stat-value"><span class="${regimeClass(info.regime)}">${info.regime || '—'}</span></div></div>
-            <div class="stat"><div class="stat-label">Trend</div><div class="stat-value"><span class="${regimeClass(info.trend)}">${info.trend || '—'}</span></div></div>
-            <div class="stat"><div class="stat-label">Open positions</div><div class="stat-value">${info.open_positions ?? '—'}</div></div>
-            <div class="stat"><div class="stat-label">Status</div><div class="stat-value">${info.status}</div></div>
-          </div>
-          ${info.last_decision ? `<div class="decision">${info.last_decision}</div>` : ''}
-          ${info.error ? `<div class="error-text">${info.error}</div>` : ''}
         `;
         container.appendChild(card);
+
+        const symbols = info.symbols || {};
+        for (const [sym, s] of Object.entries(symbols)) {
+          const row = document.createElement('div');
+          row.className = 'grid';
+          row.style.marginTop = '10px';
+          row.innerHTML = `
+            <div class="stat" style="grid-column: 1 / -1; margin-bottom: -4px;"><div class="stat-label">${sym}</div></div>
+            <div class="stat"><div class="stat-label">Regime</div><div class="stat-value"><span class="${regimeClass(s.regime)}">${s.regime || '—'}</span></div></div>
+            <div class="stat"><div class="stat-label">Trend</div><div class="stat-value"><span class="${regimeClass(s.trend)}">${s.trend || '—'}</span></div></div>
+          `;
+          card.appendChild(row);
+          if (s.last_decision) {
+            const dec = document.createElement('div');
+            dec.className = 'decision';
+            dec.textContent = s.last_decision;
+            card.appendChild(dec);
+          }
+          if (s.error) {
+            const err = document.createElement('div');
+            err.className = 'error-text';
+            err.textContent = s.error;
+            card.appendChild(err);
+          }
+        }
+        if (info.error) {
+          const err = document.createElement('div');
+          err.className = 'error-text';
+          err.textContent = info.error;
+          card.appendChild(err);
+        }
 
         if (equityHistory.length > 1) {
           const ctx = card.querySelector(`#chart-${id}`).getContext('2d');
