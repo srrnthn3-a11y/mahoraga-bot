@@ -134,5 +134,44 @@
     "decision": "Maximum exposure exceeded.",
     "order": null,
     "equity": "95890.00011445847"
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:47:17.616589+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEc86aeb6383312716\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789454837555\"}],\"inTime\":\"1789454837553765\",\"msg\":\"All operations failed\",\"outTime\":\"1789454837556087\"}"
+    },
+    "equity": "95809.16602488415",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:47:18.192423+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEb171c790d4131c9c\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789454838128\"}],\"inTime\":\"1789454838127251\",\"msg\":\"All operations failed\",\"outTime\":\"1789454838129513\"}"
+    },
+    "equity": "95809.16602488415",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-15T06:47:18.771524+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Extreme range breakdown (below last swing low) (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE3f4d15c95ac31fe9\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789454838706\"}],\"inTime\":\"1789454838705562\",\"msg\":\"All operations failed\",\"outTime\":\"1789454838707807\"}"
+    },
+    "equity": "95809.16602488415",
+    "leverage": 5
   }
 ]
