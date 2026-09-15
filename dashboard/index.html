@@ -56,6 +56,20 @@
   .badge-VOLATILE, .badge-BEARISH { background: #2e1a1a; color: #f87171; }
   .badge-UNKNOWN, .badge-UNCERTAIN { background: #23232b; color: #a1a1aa; }
 
+  .pnl-pos { color: #34d399; }
+  .pnl-neg { color: #f87171; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0; }
+  .position-row {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #101014; border-radius: 10px; padding: 10px 12px; margin-top: 8px; font-size: 0.85rem;
+  }
+  .position-side { font-weight: 700; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; }
+  .side-LONG { background: #1a2e2a; color: #34d399; }
+  .side-SHORT { background: #2e1a1a; color: #f87171; }
+  .assets-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .asset-tag { background: #101014; border-radius: 999px; padding: 3px 10px; font-size: 0.75rem; color: #a1a1aa; }
+  .section-label { font-size: 0.72rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin: 16px 0 4px; }
+  .daily-pnl-wrap { height: 60px; margin-top: 6px; }
   .decision { margin-top: 14px; font-size: 0.85rem; color: #d1d5db; background: #101014; border-radius: 10px; padding: 10px 12px; }
   .error-text { color: #f87171; font-size: 0.85rem; margin-top: 10px; }
 </style>
@@ -123,7 +137,84 @@
         `;
         container.appendChild(card);
 
+        // Win rate / total trades / total PnL summary
+        const stats = info.stats || {};
+        const pnlClass = (stats.total_pnl || 0) >= 0 ? 'pnl-pos' : 'pnl-neg';
+        const statsRow = document.createElement('div');
+        statsRow.className = 'stats-row';
+        statsRow.innerHTML = `
+          <div class="stat"><div class="stat-label">Win rate</div><div class="stat-value">${stats.win_rate != null ? stats.win_rate + '%' : '—'}</div></div>
+          <div class="stat"><div class="stat-label">Trades</div><div class="stat-value">${stats.total_trades ?? 0}</div></div>
+          <div class="stat"><div class="stat-label">Total PnL</div><div class="stat-value ${pnlClass}">${stats.total_pnl != null ? (stats.total_pnl >= 0 ? '+' : '') + '$' + stats.total_pnl.toFixed(2) : '—'}</div></div>
+        `;
+        card.appendChild(statsRow);
+
+        // Daily PnL mini bar chart (last 14 days)
+        const dailyPnl = stats.daily_pnl || {};
+        const days = Object.keys(dailyPnl).sort().slice(-14);
+        if (days.length > 0) {
+          const dailyLabel = document.createElement('div');
+          dailyLabel.className = 'section-label';
+          dailyLabel.textContent = 'Daily PnL';
+          card.appendChild(dailyLabel);
+          const dailyWrap = document.createElement('div');
+          dailyWrap.className = 'daily-pnl-wrap';
+          dailyWrap.innerHTML = `<canvas id="daily-${id}"></canvas>`;
+          card.appendChild(dailyWrap);
+
+          const dailyCtx = dailyWrap.querySelector('canvas').getContext('2d');
+          if (charts['daily-' + id]) charts['daily-' + id].destroy();
+          charts['daily-' + id] = new Chart(dailyCtx, {
+            type: 'bar',
+            data: {
+              labels: days,
+              datasets: [{
+                data: days.map(d => dailyPnl[d]),
+                backgroundColor: days.map(d => dailyPnl[d] >= 0 ? '#34d399' : '#f87171'),
+                borderRadius: 4,
+              }]
+            },
+            options: {
+              responsive: true, maintainAspectRatio: false,
+              plugins: { legend: { display: false } },
+              scales: { x: { display: false }, y: { display: false } },
+            }
+          });
+        }
+
+        // Current open positions
+        const positions = info.positions || [];
+        if (positions.length > 0) {
+          const posLabel = document.createElement('div');
+          posLabel.className = 'section-label';
+          posLabel.textContent = 'Open positions';
+          card.appendChild(posLabel);
+          for (const pos of positions) {
+            const row = document.createElement('div');
+            row.className = 'position-row';
+            row.innerHTML = `
+              <span><span class="position-side side-${pos.side}">${pos.side}</span> ${pos.symbol}</span>
+              <span>Entry $${Number(pos.entry).toLocaleString(undefined, {maximumFractionDigits: 2})}</span>
+            `;
+            card.appendChild(row);
+          }
+        }
+
+        // Assets traded
         const symbols = info.symbols || {};
+        const assetNames = Object.keys(symbols);
+        if (assetNames.length > 0) {
+          const assetsLabel = document.createElement('div');
+          assetsLabel.className = 'section-label';
+          assetsLabel.textContent = 'Assets';
+          card.appendChild(assetsLabel);
+          const assetsRow = document.createElement('div');
+          assetsRow.className = 'assets-row';
+          assetsRow.innerHTML = assetNames.map(a => `<span class="asset-tag">${a}</span>`).join('');
+          card.appendChild(assetsRow);
+        }
+
+        // Per-symbol regime/trend detail
         for (const [sym, s] of Object.entries(symbols)) {
           const row = document.createElement('div');
           row.className = 'grid';
