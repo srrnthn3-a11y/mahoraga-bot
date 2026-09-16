@@ -2,32 +2,10 @@
   "accounts": {
     "okx_demo_1": {
       "name": "OKX Demo",
-      "status": "ok",
-      "mode": "paper",
-      "equity": "93275.00979488416",
-      "symbols": {
-        "BTC/USDT": {
-          "regime": "UNCERTAIN",
-          "trend": "BEARISH",
-          "last_decision": "Mahoraga: UNCERTAIN regime, BOS (bearish).",
-          "leverage": 3
-        },
-        "ETH/USDT": {
-          "regime": "UNCERTAIN",
-          "trend": "BEARISH",
-          "last_decision": "Mahoraga: UNCERTAIN regime, BOS (bearish).",
-          "leverage": 3
-        },
-        "SOL/USDT": {
-          "regime": "RANGING",
-          "trend": "BEARISH",
-          "last_decision": "Mahoraga: RANGING regime, BOS (secondary) (bearish).",
-          "leverage": 4
-        }
-      },
-      "open_positions": 0,
-      "updated_at": "2026-09-15T22:17:15.482901+00:00"
+      "status": "connection_error",
+      "error": "Failed to fetch balance: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later. \"}",
+      "updated_at": "2026-09-16T00:28:55.291885+00:00"
     }
   },
-  "updated_at": "2026-09-15T22:17:15.492004+00:00"
+  "updated_at": "2026-09-16T00:28:55.299930+00:00"
 }
