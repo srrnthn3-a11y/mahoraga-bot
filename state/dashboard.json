@@ -2,10 +2,32 @@
   "accounts": {
     "okx_demo_1": {
       "name": "OKX Demo",
-      "status": "connection_error",
-      "error": "Failed to fetch balance: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later. \"}",
-      "updated_at": "2026-09-16T00:28:55.291885+00:00"
+      "status": "ok",
+      "mode": "paper",
+      "equity": "93892.64893453853",
+      "symbols": {
+        "BTC/USDT": {
+          "regime": "RANGING",
+          "trend": "BULLISH",
+          "last_decision": "Mahoraga: RANGING regime, CHoCH (bearish).",
+          "leverage": 5
+        },
+        "ETH/USDT": {
+          "regime": "RANGING",
+          "trend": "UNKNOWN",
+          "last_decision": "Mahoraga: RANGING regime, Extreme range breakdown (below last swing low) (bearish).",
+          "leverage": 4
+        },
+        "SOL/USDT": {
+          "regime": "RANGING",
+          "trend": "BEARISH",
+          "last_decision": "Mahoraga: RANGING regime, BOS (secondary) (bearish).",
+          "leverage": 4
+        }
+      },
+      "open_positions": 0,
+      "updated_at": "2026-09-16T05:07:35.249276+00:00"
     }
   },
-  "updated_at": "2026-09-16T00:28:55.299930+00:00"
+  "updated_at": "2026-09-16T05:07:35.256978+00:00"
 }

@@ -368,5 +368,44 @@
     },
     "equity": "93275.00979488416",
     "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-16T05:07:34.237912+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, CHoCH (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE11115fcec7fb697e\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789535254179\"}],\"inTime\":\"1789535254178759\",\"msg\":\"All operations failed\",\"outTime\":\"1789535254181460\"}"
+    },
+    "equity": "93892.64893453853",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-16T05:07:34.700067+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Extreme range breakdown (below last swing low) (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE5e66e10e0b83af57\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789535254643\"}],\"inTime\":\"1789535254642215\",\"msg\":\"All operations failed\",\"outTime\":\"1789535254644340\"}"
+    },
+    "equity": "93892.64893453853",
+    "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-16T05:07:35.248366+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: RANGING regime, BOS (secondary) (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE2416a3f6e0ce966c\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789535255190\"}],\"inTime\":\"1789535255189410\",\"msg\":\"All operations failed\",\"outTime\":\"1789535255191661\"}"
+    },
+    "equity": "93892.64893453853",
+    "leverage": 4
   }
 ]
