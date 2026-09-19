@@ -1382,5 +1382,44 @@
     },
     "equity": "100217.78409751545",
     "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-19T22:57:09.983679+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: RANGING regime, CHoCH (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE012876a5fb71d880\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789858629923\"}],\"inTime\":\"1789858629922472\",\"msg\":\"All operations failed\",\"outTime\":\"1789858629923413\"}"
+    },
+    "equity": "100178.69879143189",
+    "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-19T22:57:10.434820+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Extreme range breakout (above last swing high) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE56671710a51ccf55\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789858630374\"}],\"inTime\":\"1789858630373237\",\"msg\":\"All operations failed\",\"outTime\":\"1789858630375376\"}"
+    },
+    "equity": "100178.69879143189",
+    "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-19T22:57:10.839441+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: RANGING regime, CHoCH (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEda6ab102413854e9\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789858630778\"}],\"inTime\":\"1789858630777655\",\"msg\":\"All operations failed\",\"outTime\":\"1789858630778363\"}"
+    },
+    "equity": "100178.69879143189",
+    "leverage": 5
   }
 ]
