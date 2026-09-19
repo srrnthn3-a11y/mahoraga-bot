@@ -4,30 +4,30 @@
       "name": "OKX Demo",
       "status": "ok",
       "mode": "paper",
-      "equity": "100193.67592440831",
+      "equity": "99893.18309643585",
       "symbols": {
         "BTC/USDT": {
           "regime": "RANGING",
-          "trend": "BULLISH",
-          "last_decision": "Mahoraga: RANGING regime, Trend continuation (bullish).",
-          "leverage": 4
+          "trend": "BEARISH",
+          "last_decision": "Mahoraga: RANGING regime, CHoCH (bullish).",
+          "leverage": 5
         },
         "ETH/USDT": {
           "regime": "RANGING",
-          "trend": "BULLISH",
-          "last_decision": "Mahoraga: RANGING regime, Trend continuation (bullish).",
-          "leverage": 5
+          "trend": "BEARISH",
+          "last_decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
+          "leverage": 4
         },
         "SOL/USDT": {
           "regime": "RANGING",
           "trend": "BEARISH",
-          "last_decision": "Mahoraga: RANGING regime, Trend continuation (bearish).",
+          "last_decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
           "leverage": 5
         }
       },
       "open_positions": 0,
-      "updated_at": "2026-09-18T22:23:35.192522+00:00"
+      "updated_at": "2026-09-19T00:27:38.557999+00:00"
     }
   },
-  "updated_at": "2026-09-18T22:23:35.200705+00:00"
+  "updated_at": "2026-09-19T00:27:38.569686+00:00"
 }
