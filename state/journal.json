@@ -1499,5 +1499,44 @@
     },
     "equity": "99263.0181582689",
     "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-20T10:02:13.051918+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
+    "order": {
+      "error": "Failed to set leverage for BTC/USDT:USDT: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later.\"}"
+    },
+    "equity": "99205.01765063245",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-20T10:02:13.310038+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "TRENDING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: TRENDING regime, Range mean-reversion (near range high) (bearish).",
+    "order": {
+      "error": "Failed to set leverage for ETH/USDT:USDT: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later.\"}"
+    },
+    "equity": "99205.01765063245",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-20T10:02:13.571045+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
+    "order": {
+      "error": "Failed to set leverage for SOL/USDT:USDT: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later.\"}"
+    },
+    "equity": "99205.01765063245",
+    "leverage": 5
   }
 ]
