@@ -3683,5 +3683,44 @@
     },
     "equity": "102850.6987447922",
     "leverage": 3
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-29T22:56:35.574238+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: UNCERTAIN regime, Midpoint momentum bias (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEf884cb07d47b6177\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1790722595492\"}],\"inTime\":\"1790722595491868\",\"msg\":\"All operations failed\",\"outTime\":\"1790722595492593\"}"
+    },
+    "equity": "102854.22012300715",
+    "leverage": 3
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-29T22:56:36.149202+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE060b7d8d8b7d149c\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1790722596061\"}],\"inTime\":\"1790722596060223\",\"msg\":\"All operations failed\",\"outTime\":\"1790722596062329\"}"
+    },
+    "equity": "102854.22012300715",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-09-29T22:56:36.736248+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: UNCERTAIN regime, Midpoint momentum bias (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE560c91ab870717e7\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1790722596647\"}],\"inTime\":\"1790722596646910\",\"msg\":\"All operations failed\",\"outTime\":\"1790722596647685\"}"
+    },
+    "equity": "102854.22012300715",
+    "leverage": 3
   }
 ]
