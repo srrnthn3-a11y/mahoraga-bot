@@ -5204,5 +5204,44 @@
     },
     "equity": "103698.22094646575",
     "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-07T23:25:30.340146+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: UNCERTAIN regime, CHoCH (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEe39621dcea4b5e7c\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1791415530185\"}],\"inTime\":\"1791415530184467\",\"msg\":\"All operations failed\",\"outTime\":\"1791415530186801\"}"
+    },
+    "equity": "103518.22311280531",
+    "leverage": 3
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-07T23:25:30.907545+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "UNCERTAIN",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: UNCERTAIN regime, BOS (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEbf4b1fe606c5711f\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1791415530832\"}],\"inTime\":\"1791415530831647\",\"msg\":\"All operations failed\",\"outTime\":\"1791415530832420\"}"
+    },
+    "equity": "103518.22311280531",
+    "leverage": 3
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-07T23:25:31.470974+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "TRENDING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: TRENDING regime, BOS (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE6ec8db9e3ccd706e\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1791415531394\"}],\"inTime\":\"1791415531394563\",\"msg\":\"All operations failed\",\"outTime\":\"1791415531395249\"}"
+    },
+    "equity": "103518.22311280531",
+    "leverage": 3
   }
 ]
