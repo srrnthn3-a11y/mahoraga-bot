@@ -1,45 +1,6 @@
 [
   {
     "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T10:02:13.310038+00:00",
-    "symbol": "ETH/USDT",
-    "regime": "TRENDING",
-    "trend": "UNKNOWN",
-    "decision": "Mahoraga: TRENDING regime, Range mean-reversion (near range high) (bearish).",
-    "order": {
-      "error": "Failed to set leverage for ETH/USDT:USDT: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later.\"}"
-    },
-    "equity": "99205.01765063245",
-    "leverage": 5
-  },
-  {
-    "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T10:02:13.571045+00:00",
-    "symbol": "SOL/USDT",
-    "regime": "RANGING",
-    "trend": "UNKNOWN",
-    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
-    "order": {
-      "error": "Failed to set leverage for SOL/USDT:USDT: okx {\"code\":\"50001\",\"data\":[],\"msg\":\"Service temporarily unavailable. Please try again later.\"}"
-    },
-    "equity": "99205.01765063245",
-    "leverage": 5
-  },
-  {
-    "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T14:08:33.748192+00:00",
-    "symbol": "BTC/USDT",
-    "regime": "UNCERTAIN",
-    "trend": "UNKNOWN",
-    "decision": "Mahoraga: UNCERTAIN regime, Extreme range breakout (above last swing high) (bullish).",
-    "order": {
-      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE0e1e50aa48664a16\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789913313665\"}],\"inTime\":\"1789913313663862\",\"msg\":\"All operations failed\",\"outTime\":\"1789913313666287\"}"
-    },
-    "equity": "99448.29991216249",
-    "leverage": 3
-  },
-  {
-    "account_id": "okx_demo_1",
     "timestamp": "2026-09-20T14:08:34.292086+00:00",
     "symbol": "ETH/USDT",
     "regime": "UNCERTAIN",
@@ -6498,5 +6459,44 @@
     },
     "equity": "101129.25051833129",
     "leverage": 3
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-20T23:24:17.123390+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, CHoCH (bearish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE9561963926f5d7b1\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792538657049\"}],\"inTime\":\"1792538657048796\",\"msg\":\"All operations failed\",\"outTime\":\"1792538657050913\"}"
+    },
+    "equity": "101342.55983195582",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-20T23:24:17.646914+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "BEARISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE55719d6be07a428a\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792538657572\"}],\"inTime\":\"1792538657571530\",\"msg\":\"All operations failed\",\"outTime\":\"1792538657573660\"}"
+    },
+    "equity": "101342.55983195582",
+    "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-20T23:24:18.164385+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEd767764fb26afed0\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792538658090\"}],\"inTime\":\"1792538658089233\",\"msg\":\"All operations failed\",\"outTime\":\"1792538658091488\"}"
+    },
+    "equity": "101342.55983195582",
+    "leverage": 5
   }
 ]
