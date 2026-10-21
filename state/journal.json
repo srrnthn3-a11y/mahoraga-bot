@@ -1,45 +1,6 @@
 [
   {
     "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T19:40:20.608900+00:00",
-    "symbol": "ETH/USDT",
-    "regime": "RANGING",
-    "trend": "UNKNOWN",
-    "decision": "Mahoraga: RANGING regime, Extreme range breakout (above last swing high) (bullish).",
-    "order": {
-      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEe7fae5ab7fb8e586\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789933220510\"}],\"inTime\":\"1789933220509651\",\"msg\":\"All operations failed\",\"outTime\":\"1789933220511970\"}"
-    },
-    "equity": "100288.3147966102",
-    "leverage": 4
-  },
-  {
-    "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T19:40:21.202588+00:00",
-    "symbol": "SOL/USDT",
-    "regime": "RANGING",
-    "trend": "BULLISH",
-    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range high) (bearish).",
-    "order": {
-      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE2d144f3fd2b2b75b\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789933221103\"}],\"inTime\":\"1789933221103325\",\"msg\":\"All operations failed\",\"outTime\":\"1789933221103893\"}"
-    },
-    "equity": "100288.3147966102",
-    "leverage": 4
-  },
-  {
-    "account_id": "okx_demo_1",
-    "timestamp": "2026-09-20T21:50:27.622195+00:00",
-    "symbol": "BTC/USDT",
-    "regime": "RANGING",
-    "trend": "UNKNOWN",
-    "decision": "Mahoraga: RANGING regime, Midpoint momentum bias (bullish).",
-    "order": {
-      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE54f380ff01841b97\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1789941027542\"}],\"inTime\":\"1789941027541476\",\"msg\":\"All operations failed\",\"outTime\":\"1789941027543617\"}"
-    },
-    "equity": "99892.50326692127",
-    "leverage": 4
-  },
-  {
-    "account_id": "okx_demo_1",
     "timestamp": "2026-09-20T21:50:28.143081+00:00",
     "symbol": "ETH/USDT",
     "regime": "RANGING",
@@ -6497,6 +6458,45 @@
       "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEdbf42c5aedb7038a\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792564740174\"}],\"inTime\":\"1792564740173419\",\"msg\":\"All operations failed\",\"outTime\":\"1792564740175784\"}"
     },
     "equity": "101299.17621854186",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-21T12:24:59.428249+00:00",
+    "symbol": "BTC/USDT",
+    "regime": "RANGING",
+    "trend": "UNKNOWN",
+    "decision": "Mahoraga: RANGING regime, Midpoint momentum bias (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEfe9d0d942376135f\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792585499367\"}],\"inTime\":\"1792585499366559\",\"msg\":\"All operations failed\",\"outTime\":\"1792585499368849\"}"
+    },
+    "equity": "102005.14836695105",
+    "leverage": 5
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-21T12:24:59.834285+00:00",
+    "symbol": "ETH/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDE2c9ae1f4a971d9ef\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792585499772\"}],\"inTime\":\"1792585499771761\",\"msg\":\"All operations failed\",\"outTime\":\"1792585499774076\"}"
+    },
+    "equity": "102005.14836695105",
+    "leverage": 4
+  },
+  {
+    "account_id": "okx_demo_1",
+    "timestamp": "2026-10-21T12:25:00.236561+00:00",
+    "symbol": "SOL/USDT",
+    "regime": "RANGING",
+    "trend": "BULLISH",
+    "decision": "Mahoraga: RANGING regime, Range mean-reversion (near range low) (bullish).",
+    "order": {
+      "error": "Order failed: okx {\"code\":\"1\",\"data\":[{\"clOrdId\":\"6b9ad766b55dBCDEa924ade0c0a6b747\",\"ordId\":\"\",\"sCode\":\"51000\",\"sMsg\":\"Parameter posSide error \",\"subCode\":\"\",\"tag\":\"6b9ad766b55dBCDE\",\"ts\":\"1792585500173\"}],\"inTime\":\"1792585500172743\",\"msg\":\"All operations failed\",\"outTime\":\"1792585500174904\"}"
+    },
+    "equity": "102005.14836695105",
     "leverage": 5
   }
 ]
